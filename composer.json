@@ -1,0 +1,15 @@
+{
+    "name": "adderlin/mytestculqi",
+    "description": "testculqui",
+    "type": "library",
+    "require": {
+        "vlucas/phpdotenv": "^5.2"
+    },
+    "license": "open",
+    "authors": [
+        {
+            "name": "adderlin"
+        }
+    ],
+    "minimum-stability": "beta"
+}

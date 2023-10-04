@@ -1,0 +1,124 @@
+#version de git:   
+git -v
+#listar archivos:  
+ls -l
+ls -al
+#Ubicacion:        
+pwd
+cd ..
+cd xampp/htdocs/culqi/
+cd Windows\ server\ 2012\ r2x64/
+#limpiar : clear
+#crear y visualizar Archivo : 
+pwd
+touch hola.txt
+cat hola.txt
+#Historial de Comandos :
+history
+!532
+#GIT Comandos :
+git init
+git status
+git add prueba.txt
+git status
+git add .
+git commit -m "se agrego el texto Adios"
+git log
+
+git config
+------------
+git config --global 
+$ git config --list
+$ git config --list --show-origin
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+$ git config --global init.defaultBranch master
+
+-------
+code prueba.txt
+git add .
+-------remover el add----
+git status
+git rm prueba.txt
+git rm --cached prueba.txt
+git status
+--------------------------
+git commit -m "se cambio el nombre"
+git log
+git checkout 25919bade0a7e5424942e892ea53d541ce008222
+git checkout main
+git checkout 6b68211f964d0b13f67d7e460129c0c3e23ca0f1
+$ git branch
+
+----------------
+git add .
+git commit -m "se agrego el texto abdccddd"
+git show ##muestra la diferencia de ultimo commit
+git show ##muestra la Antes de ultimo commit
+----------------
+vim.
+scape
+i #insertar 
+scape
+:wq ##white y quit
+scape+shif+zz
+ --------
+#navegar entre commit
+space
+#salir 
+q
+---------------
+ ----------antes--------despues---
+git diff  25919bade0a7e 9399441bc2d9e806 
+
+
+ ----------reset ---
+git reset 25919bade0a7e 9399441bc2d9e806 --hard
+git reset 25919bade0a7e 9399441bc2d9e806 --soft
+
+ ----------comit y stadin ---
+git commit -am "se agrego el texto abdccddd"
+git log
+git log stat
+git show
+
+======github
+git clone
+git push #subir cambios
+git pull #actualiza
+fetch
+merge
+
+=======ramas
+git checkout master
+git branch -m nombre-antiguo nombre-nuevo
+git branch -a
+
+git branch nombre_rama
+git branch nombre_rama
+git branch
+git checkout nombre_rama
+git checkout master
+git log
+git log stat
+git show
+git log nombre_rama
+
+=======merge
+git checkout master
+git merge nombre_rama
+CONFLICT
+git commit -am "se solucio conflicto"
+
+======GITHUB
+despues de crear un repositorio y tener url
+git remote add origin hhtps:///-.......
+git pull origin master
+
+git remote
+git remote -v
+	origen url (fetch)
+	origen url (push)
+git push origin master
+
+

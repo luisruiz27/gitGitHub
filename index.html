@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CULQI</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="col12">
+      <div class="card">
+        <div class="card-header">
+          INTEGRACION PASARELA DE PAGOS
+        </div>
+        <div class="card-body">
+          <div class="row">
+              <div class="col8">
+                <label for="">Producto</label>
+                <input type="text" class="form-control" id="txt_producto" len>
+              </div>
+              <div class="col2">
+                <label for="">Precio</label>
+                <input type="text" class="form-control" id="txt_precio">
+              </div>
+            <div class="col2">
+              <label for="">&nbsp;</label>
+              <button class="btn btn-success" id="btn_pagar">Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://checkout.culqi.com/js/v4"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>      
+    Culqi.publicKey = 'pk_test_c339645bc31111db';
+    var producto='';
+    var precio='';
+    var email='';
+
+    </script>
+  </body>
+</html>
+
+
+<script>
+  const btn_pagar = document.getElementById('btn_pagar');
+
+  btn_pagar.addEventListener('click', function (e) {
+    producto=document.getElementById('txt_producto').value;
+    precio=document.getElementById('txt_precio').value*100;
+
+      // Abre el formulario con la configuración en Culqi.settings y CulqiOptions
+      Culqi.settings({
+        title: 'Culqi Store',
+        currency: 'PEN',  // Este parámetro es requerido para realizar pagos yape
+        amount: precio,  // Este parámetro es requerido para realizar pagos yape
+        description:producto,
+        // order: 'ord_live_0CjjdWhFpEAZlxlz', // Este parámetro es requerido para realizar pagos con pagoEfectivo, billeteras y Cuotéalo
+        // xculqirsaid: 'Inserta aquí el id de tu llave pública RSA',
+        // rsapublickey: 'Inserta aquí tu llave pública RSA',
+      });
+
+      Culqi.options({
+        lang: "auto",
+        installments: false, // Habilitar o deshabilitar el campo de cuotas
+        paymentMethods: {
+          tarjeta: true,
+          yape: true,
+          bancaMovil: false,
+          agente: false,
+          billetera: false,
+          cuotealo: false,
+        },
+      });
+
+      Culqi.open();
+      e.preventDefault();
+  })
+
+
+  function culqi() {
+    if (Culqi.token) {  // ¡Objeto Token creado exitosamente!
+      var token = Culqi.token.id;
+      //email = Culqi.token.email;
+      
+      console.log('Se ha creado un Token: ', token);
+      //En esta linea de codigo debemos enviar el "Culqi.token.id"
+      //hacia tu servidor con Ajax
+        // Enviar una solicitud AJAX
+        $.ajax({
+          url: 'procesarPago.php', // Archivo PHP que manejará la solicitud AJAX
+          method: 'POST',
+          // Datos que se enviarán al servidor
+          data: { 
+            token: token,
+            producto:producto,
+            precio: precio,
+            //email: email
+          }
+        }).done(function(resp){
+          alert(resp);
+        });
+    } else if (Culqi.order) {  // ¡Objeto Order creado exitosamente!
+      const order = Culqi.order;
+      console.log('Se ha creado el objeto Order: ', order);
+    } else {
+      // Mostramos JSON de objeto error en consola
+      console.log('Error : ',Culqi.error);
+    }
+  };
+  
+</script>
+
+
+
